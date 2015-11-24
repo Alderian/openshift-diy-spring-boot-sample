@@ -2,7 +2,7 @@
 
 set -x
 
-source env-vars
+source ./env-vars
 
 # Create Maven repository if not exist
 if [ ! -d $OPENSHIFT_DATA_DIR/m2/repository ]
