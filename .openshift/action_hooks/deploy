@@ -40,7 +40,7 @@ fi
 
 # Build and deploy app
 cd $OPENSHIFT_REPO_DIR
-export M2=$M2_VERSION/bin
+export M2=$M2_HOME/bin
 export MAVEN_OPTS="-Xms384m -Xmx412m"
 export PATH=$JAVA_HOME/bin:$M2:$PATH
 
