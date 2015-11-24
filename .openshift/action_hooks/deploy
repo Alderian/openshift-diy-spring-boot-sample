@@ -2,7 +2,12 @@
 
 set -x
 
-source ./env-vars
+export M2_VERSION=3.3.9
+export M2_HOME=$OPENSHIFT_DATA_DIR/maven
+
+export JAVA_VERSION=8u66
+export JAVA_BUILD=b17
+export JAVA_HOME=$OPENSHIFT_DATA_DIR/jdk8
 
 # Create Maven repository if not exist
 if [ ! -d $OPENSHIFT_DATA_DIR/m2/repository ]

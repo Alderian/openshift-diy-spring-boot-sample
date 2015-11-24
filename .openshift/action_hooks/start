@@ -4,7 +4,6 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 set -x
 
-source ./env-vars
 export PATH=$JAVA_HOME/bin:$PATH
 
 cd $OPENSHIFT_REPO_DIR
