@@ -1,17 +1,15 @@
 package ar.com.alderian.demo.openshift.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "people")
-public class Person {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+public class Person extends AbstractEntity {
 
     @Column(name = "first_name")
     @NotEmpty
@@ -33,14 +31,6 @@ public class Person {
     @NotEmpty
     @Digits(fraction = 0, integer = 10)
     private String telephone;
-
-    public void setId(Integer id) {
-	this.id = id;
-    }
-
-    public Integer getId() {
-	return id;
-    }
 
     public String getAddress() {
 	return this.address;
