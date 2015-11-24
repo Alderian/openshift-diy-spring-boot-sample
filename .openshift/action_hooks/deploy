@@ -2,39 +2,42 @@
 
 set -x
 
+source env-vars
+
+# Create Maven repository if not exist
 if [ ! -d $OPENSHIFT_DATA_DIR/m2/repository ]
         then
                 cd $OPENSHIFT_DATA_DIR
-				mkdir m2/repository                
+		mkdir m2/repository                
 fi
 
-if [ ! -d $OPENSHIFT_DATA_DIR/logs ]
+# Get Java 8 if not exist
+if [ ! -d $JAVA_HOME ]
         then
                 cd $OPENSHIFT_DATA_DIR
-				mkdir logs
-fi
-
-if [ ! -d $OPENSHIFT_DATA_DIR/jdk1.8.0_20 ]
-        then
-                cd $OPENSHIFT_DATA_DIR
-                wget http://www.java.net/download/jdk8u20/archive/b17/binaries/jdk-8u20-ea-bin-b17-linux-x64-04_jun_2014.tar.gz
+                rm -f *.tar.gz
+                wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION}-${JAVA_BUILD}/jdk-${JAVA_VERSION}-linux-x64.tar.gz
                 tar xvf *.tar.gz
                 rm -f *.tar.gz
+		mv jdk* jdk8
 fi
 
-if [ ! -d $OPENSHIFT_DATA_DIR/apache-maven-3.2.3 ]
+# Get Maven if not exist
+if [ ! -d $M2_HOME ]
         then
                 cd $OPENSHIFT_DATA_DIR
-                wget http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.2.3/binaries/apache-maven-3.2.3-bin.tar.gz
+                rm -f *.tar.gz
+                wget http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/$M2_VERSION/binaries/apache-maven-$M2_VERSION-bin.tar.gz
                 tar xvf *.tar.gz
                 rm -f *.tar.gz
+		mv apache-maven-* maven
 fi
 
-
+# Build and deploy app
 cd $OPENSHIFT_REPO_DIR
-export M2=$OPENSHIFT_DATA_DIR/apache-maven-3.2.3/bin
+export M2=$M2_VERSION/bin
 export MAVEN_OPTS="-Xms384m -Xmx412m"
-export JAVA_HOME=$OPENSHIFT_DATA_DIR/jdk1.8.0_20
 export PATH=$JAVA_HOME/bin:$M2:$PATH
 
-mvn -s settings.xml clean install
+# Do not run tests here to speed up deploy
+mvn -s settings.xml clean install -DskipTests=true

@@ -1,4 +1,4 @@
-package demo.model;
+package ar.com.alderian.demo.openshift.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -35,51 +35,51 @@ public class Person {
     private String telephone;
 
     public void setId(Integer id) {
-        this.id = id;
+	this.id = id;
     }
 
     public Integer getId() {
-        return id;
+	return id;
     }
 
     public String getAddress() {
-        return this.address;
+	return this.address;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+	this.address = address;
     }
 
     public String getCity() {
-        return this.city;
+	return this.city;
     }
 
     public void setCity(String city) {
-        this.city = city;
+	this.city = city;
     }
 
     public String getTelephone() {
-        return this.telephone;
+	return this.telephone;
     }
 
     public void setTelephone(String telephone) {
-        this.telephone = telephone;
+	this.telephone = telephone;
     }
 
     public String getFirstName() {
-        return this.firstName;
+	return this.firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+	this.firstName = firstName;
     }
 
     public String getLastName() {
-        return this.lastName;
+	return this.lastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+	this.lastName = lastName;
     }
 
 }

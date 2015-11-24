@@ -1,8 +1,13 @@
+# openshift-diy-spring-boot-sample
+Following tutorial http://blog.codeleak.pl/2014/10/spring-boot-java-8-tomcat-8-on-openshift.html
+
 # Prerequisite
 
-Before we can start building the application, we need to have an OpenShift free account and client tools installed.
+Before we can start building the application, we need to have an OpenShift free or paid account and RedHat client tools(rhc) installed. For instructions how to install rhc please read [Getting Started with OpenShift Online](https://developers.openshift.com/en/getting-started-overview.html).
 
 # Step 1: Create DIY application
+
+Note: your rhc should be already setted up!
 
 To create an application using client tools, type the following command:
 
@@ -22,6 +27,11 @@ After creating the cartridge, it is possible to check its status with the follow
 
 # Step 3: Delete Template Application Source code
 
+First checkout code from Openshift...
+
+    $ git clone ssh://{uuid}@{app-name}-{domain}.rhcloud.com/~/git/{app-name}.git/
+    $ cd {app-name}
+
 OpenShift creates a template project that can be freely removed:
 
     git rm -rf .openshift README.md diy misc
@@ -32,7 +42,9 @@ Commit the changes:
 
 # Step 4: Pull Source code from GitHub
 
-    git remote add upstream https://github.com/kolorobot/openshift-diy-spring-boot-sample.git
+After develop of firt app version, and you are ready for first tests... Add remote upstream
+
+    git remote add upstream https://github.com/{your-user}/openshift-diy-spring-boot-sample.git
     git pull -s recursive -X theirs upstream master
 
 # Step 5: Push changes
@@ -46,7 +58,7 @@ The initial deployment (build and application startup) will take some time (up t
 	Tomcat started on port(s): 8080/http
 	Started Application in 125.511 seconds
 
-You can now browse to: http://boot-<namespace>.rhcloud.com/manage/health and you should see:
+You can now browse to: http://{app-name}-{domain}.rhcloud.com/manage/health and you should see:
 
 	{
 		"status": "UP",
